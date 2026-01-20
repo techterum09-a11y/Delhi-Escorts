@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+<?php
+
+define('LARAVEL_START', microtime(true));
+
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader
+| for our application. We just need to utilize it! We'll simply require
+| it into the script here so we don't have to worry about manual
+| loading any of our classes later on. It feels great to relax.
+|
+*/
+
+if (!file_exists(__DIR__.'/vendor/autoload.php')) {
+	fwrite(STDERR, "Dependencies are missing: run 'composer install' in the project root.\n");
+	fwrite(STDERR, "If composer fails with an SSL/curl error, disable HTTPS scanning in your antivirus (e.g. Avast),\n");
+	fwrite(STDERR, "or add your proxy/AV root CA to Windows Trusted Root Certification Authorities.\n");
+	fwrite(STDERR, "As an alternative, download a CA bundle (https://curl.se/ca/cacert.pem) and set COMPOSER_CAFILE,\n");
+	fwrite(STDERR, "or set 'openssl.cafile' and 'curl.cainfo' in your php.ini to point to that file, then re-run composer.\n");
+	exit(1);
+}
+require __DIR__.'/vendor/autoload.php';
+
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Run The Artisan Application
+|--------------------------------------------------------------------------
+|
+| When we run the console application, the current CLI command will be
+| executed in this console and the response sent back to a terminal
+| or console. Here goes nothing!
+|
+*/
+
+$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+
+exit($kernel->handle(new Symfony\Component\Console\Input\ArgvInput, new Symfony\Component\Console\Output\ConsoleOutput));

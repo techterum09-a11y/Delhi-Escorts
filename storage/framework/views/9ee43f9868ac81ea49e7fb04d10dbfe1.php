@@ -1,0 +1,1 @@
+<?php /**PATH C:\xampp\htdocs\escorts\resources\views/partials/faq-section.blade.php ENDPATH**/ ?>
